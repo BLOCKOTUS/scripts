@@ -1,6 +1,14 @@
 #!/bin/bash
 
-pushd scripts
+if [ "${PWD##*/}" != "scripts" ];
+    then
+        pushd scripts
+fi
+
+bash env.sh
+
+# clean upgrade data
+rm -rf ./versions/*
 
 # start testnet network
 ./startNetwork.sh
