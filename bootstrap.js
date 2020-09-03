@@ -67,7 +67,7 @@ const createWalletsAndRegister = async (users) => {
             sharedKeyPairs[username] = await generateKeyPair();
             user
                 .create({username, publicKey: keypairs[username].publicKey})
-                .then(async ({wallet, id}) => {
+                .then(({wallet, id}) => {
                     wallets[username] = wallet;
                     ids[username] = id;
 
