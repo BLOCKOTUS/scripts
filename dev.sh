@@ -28,7 +28,7 @@ pushd ../../scripts
 node bootstrap 
 
 # start nerves-server
-pushd ../../nerves
+pushd ../nerves
 yarn start &
 
 # start webapp

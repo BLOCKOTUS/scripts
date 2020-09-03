@@ -1,16 +1,17 @@
 #!/bin/bash
 
 mkdir -p wallet
-git submodules update --init --recursive
 pushd scripts
-bash env.sh
+yarn
 pushd ../network
-bash scripts/downloadBinaries.sh -d -s
+bash scripts/downloadBinaries.sh -s
 pushd ../nerves
 yarn
 pushd ../organs/admins
 yarn
 pushd ../identity
 yarn
-pushd ../../webapp
+pushd ../helper/fabric/helper/javascript
+yarn
+pushd ../../../../../webapp
 yarn
