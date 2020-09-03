@@ -14,10 +14,10 @@ rm -rf ./versions/*
 ./startNetwork.sh
 
 # build and deploy chaincode contracts
+./startFabric.sh helper helper javascript
 ./startFabric.sh user user javascript
-./startFabric.sh identity identity javascript
-# ./startFabric.sh notification notification javascript
 ./startFabric.sh job job javascript
+./startFabric.sh identity identity javascript
 
 # enroll admin
 pushd ../organs/admins
@@ -27,16 +27,13 @@ node enrollAdmin
 pushd ../../scripts
 node bootstrap 
 
-# create and approve identities for the first tribe
-# TODO: node approveFirstTribe
+# start nerves-server
+pushd ../../nerves
+yarn start &
 
-# # start nerves-server
-# pushd ../../nerves
-# yarn start &
-
-# # start webapp
-# pushd ../webapp
-# yarn dev
+# start webapp
+pushd ../webapp
+yarn dev
 
 # give compliment
 echo "You rock baby. Starting webapp."
