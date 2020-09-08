@@ -14,10 +14,10 @@ rm -rf ./versions/*
 ./startNetwork.sh
 
 # build and deploy chaincode contracts
-./startFabric.sh helper helper javascript
-./startFabric.sh user user javascript
-./startFabric.sh job job javascript
-./startFabric.sh identity identity javascript
+./startFabric.sh helper javascript
+./startFabric.sh user javascript
+./startFabric.sh job javascript
+./startFabric.sh identity javascript
 
 # enroll admin
 pushd ../organs/admins

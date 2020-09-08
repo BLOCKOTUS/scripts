@@ -11,7 +11,7 @@ pushd ../organs/admins
 yarn
 pushd ../identity
 yarn
-pushd ../helper/fabric/helper/javascript
+pushd ../helper
 yarn
-pushd ../../../../../webapp
+pushd ../../webapp
 yarn

@@ -4,9 +4,9 @@ var RSA = require('hybrid-crypto-js').RSA;
 var Crypt = require('hybrid-crypto-js').Crypt;
 const axios = require('axios');
 
-const user = require('../organs/user/fabric/user/javascript');
-const identity = require('../organs/identity/fabric/identity/javascript');
-const job = require('../organs/job/fabric/job/javascript');
+const user = require('../organs/user/api');
+const identity = require('../organs/identity/api');
+const job = require('../organs/job/api');
 
 const indexLastJobAttribution = {"index":{"fields":["lastJobAttribution"]},"ddoc":"indexLastJobAttributionDoc","name":"indexLastJobAttribution","type":"json"};
 const indexRegistryDateString = {"index":{"fields":["registryDate"]},"ddoc":"indexRegistryDateStringDoc","name":"indexRegistryDateString","type":"json"};

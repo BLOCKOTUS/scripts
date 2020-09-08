@@ -29,4 +29,4 @@ echo "$VERSION" > $path
 
 echo $VERSION
 
-./startFabric.sh $ORGAN $ORGAN javascript $VERSION
+./startFabric.sh $ORGAN javascript $VERSION
