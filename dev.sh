@@ -28,12 +28,12 @@ pushd ../../scripts
 node bootstrap 
 
 # start nerves-server
-pushd ../nerves
-yarn start &
+# pushd ../nerves
+# yarn start &
 
-# start webapp
-pushd ../webapp
-yarn dev
+# # start webapp
+# pushd ../webapp
+# yarn dev
 
 # give compliment
 echo "You rock baby. Starting webapp."
