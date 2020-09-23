@@ -15,18 +15,18 @@ follow-redirects@^1.10.0:
   integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
 
 hybrid-crypto-js@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/hybrid-crypto-js/-/hybrid-crypto-js-0.2.3.tgz#a81cb8bf0b67a82e0797d46431658b69fb6e7ee9"
-  integrity sha512-46L7kQT/xvXMUX2Zng6aENOl2tQQJafQdsl5YCq49kiilbu3ZFGf4gmAOsy8rtXPC825v6iXoIv4eV77jo0fPg==
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/hybrid-crypto-js/-/hybrid-crypto-js-0.2.4.tgz#7e764a6c4c7542e84df368df9e84fd76ab7043a1"
+  integrity sha512-lm4iQn14rApw/7yLOnd9eZu8JaxD8+BB34bQaZY7faKiT78tVjxSwOabOPO2LSIS0QMANhjMXNLNUXyuAJwYXw==
   dependencies:
     node-forge "^0.8.5"
 
 jsrsasign@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/jsrsasign/-/jsrsasign-9.0.1.tgz#ef62b757eace3b2127142adaba7a3c26e2487307"
-  integrity sha512-DRPZ75Y+G0O1zWKQkevkr0ENBYl7nb39/112lXzBgzoaeiUkGXpRfk+FbRCusowG6MvpInOwEmZ3IWU9VI4w3w==
+  version "9.1.9"
+  resolved "https://registry.yarnpkg.com/jsrsasign/-/jsrsasign-9.1.9.tgz#62f44eb2766264f0bfaffd87b8ade05ee4563347"
+  integrity sha512-BMajAcUANeo07/MnscMAsHJtddYtqN/ix4twr+dOheHc5KH/Ad06bI6YfUB2M7ZQhqxvt9pbVWFXYQXe6G+yXw==
 
-node-forge@^0.8.5:
-  version "0.8.5"
-  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.8.5.tgz#57906f07614dc72762c84cef442f427c0e1b86ee"
-  integrity sha512-vFMQIWt+J/7FLNyKouZ9TazT74PRV3wgv9UT4cRjC8BffxFbKXkgIWR42URCPSnHm/QDz6BOlb2Q0U4+VQT67Q==
+node-forge@^0.10.0, node-forge@^0.8.5:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-0.10.0.tgz#32dea2afb3e9926f02ee5ce8794902691a676bf3"
+  integrity sha512-PPmu8eEeG9saEUvI97fm4OYxXVB6bFvyNTyiUOBichBpFG8A1Ljw3bY62+5oOjDEMHRnd0Y7HQ+x7uzxOzC6JA==

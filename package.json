@@ -16,5 +16,8 @@
     "axios": "^0.20.0",
     "hybrid-crypto-js": "^0.2.3",
     "jsrsasign": "^9.0.1"
+  },
+  "resolutions": {
+    "node-forge": "^0.10.0"
   }
 }
