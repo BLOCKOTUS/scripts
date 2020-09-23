@@ -1,13 +1,17 @@
 {
-  "name": "scripts",
-  "version": "1.0.0",
+  "name": "blockotus-scripts",
+  "version": "0.1.3-beta",
   "description": "",
   "main": "bootstrap.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blockotus/scripts.git"
+  },
+  "author": "Daniel Febrero",
+  "license": "AGPL-3.0",
   "dependencies": {
     "axios": "^0.20.0",
     "hybrid-crypto-js": "^0.2.3",
