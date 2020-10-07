@@ -1,9 +1,15 @@
-#!/bin/
+#!/bin/bash
+set -e
 
-if [ "${PWD##*/}" != "scripts" ];
+###### source variables
+if [ "${PWD##*/}" == "scripts" ];
     then
-        pushd scripts
+        pushd ../
 fi
+
+source ./scripts/env.sh
+pushd scripts
+######
 
 ORGAN=${1}
 

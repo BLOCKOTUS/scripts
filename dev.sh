@@ -1,4 +1,15 @@
 #!/bin/bash
+set -e
+
+###### source variables
+if [ "${PWD##*/}" == "scripts" ];
+    then
+        pushd ../
+fi
+
+source ./scripts/env.sh
+pushd scripts
+######
 
 SKIP_NERVES=0
 SKIP_CONTRACTS=0
@@ -34,11 +45,6 @@ while [[ $# -ge 1 ]] ; do
   esac
   shift
 done
-
-if [ "${PWD##*/}" != "scripts" ];
-    then
-        pushd scripts
-fi
 
 if [ $SKIP_NETWORK == 0 ];
     then

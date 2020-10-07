@@ -1,4 +1,10 @@
 #!/bin/bash
+set -e
+
+if [ "${PWD##*/}" == "scripts" ];
+    then
+        pushd ../
+fi
 
 mkdir -p wallet
 pushd scripts
