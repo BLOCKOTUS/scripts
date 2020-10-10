@@ -58,10 +58,10 @@ if [ $SKIP_CONTRACTS == 0 ];
         # clean upgrade data
         rm -rf ./versions/*
         # build and deploy chaincode contracts
-        ./startFabric.sh helper javascript
-        ./startFabric.sh user javascript
-        ./startFabric.sh job javascript
-        ./startFabric.sh identity javascript
+        ./startFabric.sh helper typescript
+        ./startFabric.sh user typescript
+        ./startFabric.sh job typescript
+        ./startFabric.sh identity typescript
         
         # enroll admin
         pushd ../organs/admins
