@@ -79,7 +79,7 @@ fi
 if [ $SKIP_NERVES == 0 ];
     then
         echo "Starting nerves..."
-        start nerves-server
+        # start nerves-server
         pushd ../nerves
         yarn start &
 fi
