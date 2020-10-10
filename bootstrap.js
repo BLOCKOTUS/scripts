@@ -147,7 +147,7 @@ const createSharedKeypairs = async (users) => {
 
             workersByUsername[u].forEach(worker => {
                 if(worker._id === u) return;
-                sharedWith[worker._id] = {keyPair: crypt.encrypt(worker.publicKey, sharedKeyPairs[u])}
+                sharedWith[worker._id] = {keypair: crypt.encrypt(worker.publicKey, sharedKeyPairs[u])}
             })
 
             console.log('sharedWith count', Object.keys(sharedWith).length)
