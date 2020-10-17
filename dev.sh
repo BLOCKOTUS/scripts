@@ -57,6 +57,11 @@ if [ $SKIP_CONTRACTS == 0 ];
         echo "Compiling and deploying contracts"
         # clean upgrade data
         rm -rf ./versions/*
+        # clean dist folders
+        rm -rf ../organs/helper/chaincode/typescript/dist/*
+        rm -rf ../organs/identity/chaincode/typescript/dist/*
+        rm -rf ../organs/job/chaincode/typescript/dist/*
+        rm -rf ../organs/user/chaincode/typescript/dist/*
         # build and deploy chaincode contracts
         ./startFabric.sh helper typescript
         ./startFabric.sh user typescript
