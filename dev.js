@@ -36,6 +36,12 @@ const ENV = {
   CORE_PEER_ADDRESS: `localhost:7051`,
 };
 
+const STDIO = args['--verbose'] 
+  ? ['inherit', 'inherit', 'inherit']
+  : ['ignore', 'ignore', 'ignore'];
+
+const verbose = log => args['--verbose'] && console.log(log);
+
 const serial = funcs =>
   funcs.reduce((promise, func) =>
     typeof func === 'function'
@@ -47,15 +53,16 @@ const network = () => {
   console.log('***** starting network *****');
   child_process.execSync(
     './startNetwork.sh',
-    { stdio: 'inherit', cwd: CWD_SCRIPTS, env: ENV }
+    { stdio: STDIO, cwd: CWD_SCRIPTS, env: ENV }
   );
+  verbose('done.')
 }
 
 const contracts = async () => {
   console.log('***** starting contracts *****');
   child_process.execSync(
     'rm -rf ./versions/*',
-    { stdio: 'inherit', cwd: CWD_SCRIPTS, env: ENV }
+    { stdio: STDIO, cwd: CWD_SCRIPTS, env: ENV }
   );
 
   const promisesContracts = CONFIG.organs.map(o => {
@@ -63,14 +70,14 @@ const contracts = async () => {
       try{
         o.lang === 'typescript' && child_process.execSync(
           `rm -rf ../organs/${o.name}/chaincode/typescript/dist/*`,
-          { stdio: 'inherit', cwd: CWD_SCRIPTS, env: ENV }
+          { stdio: STDIO, cwd: CWD_SCRIPTS, env: ENV }
         );
       } catch (e) { console.log('ERROR deleting typescript dist', e) }               
 
       try{
         child_process.execSync(
           `./startFabric.sh ${o.name} ${o.lang}`,
-          { stdio: 'inherit', cwd: CWD_SCRIPTS, env: ENV }
+          { stdio: STDIO, cwd: CWD_SCRIPTS, env: ENV }
         );
       } catch (e) { console.log('ERROR with ./startFabric', e) }      
 
@@ -80,6 +87,7 @@ const contracts = async () => {
 
   await serial(promisesContracts);
   await enrollAdmin.main();
+  verbose('done.')
 }
 
 const boot = async () => {
@@ -96,16 +104,18 @@ const nerves = async () => {
   console.log('***** starting nerves *****');
   child_process.execSync(
     'yarn start &',
-    { stdio: 'inherit', cwd: CWD_NERVES, env: ENV }
+    { stdio: STDIO, cwd: CWD_NERVES, env: ENV }
   );
+  verbose('done.')
 }
 
 const webapp = async () => {
   console.log('***** starting webapp *****');
   child_process.execSync(
     'yarn start',
-    { stdio: 'inherit', cwd: CWD_WEBAPP, env: ENV }
+    { stdio: STDIO, cwd: CWD_WEBAPP, env: ENV }
   );
+  verbose('done.')
 }
 
 const dev = async () => {
@@ -114,7 +124,7 @@ const dev = async () => {
   !args['--skip-bootstrap'] && await boot();
   !args['--skip-nerves'] && nerves();
   !args['--skip-webapp'] && webapp();
-  console.log('You rock baby.');
+  verbose('You rock baby.');
 }
 
 dev();
