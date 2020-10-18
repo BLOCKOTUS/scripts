@@ -13,6 +13,7 @@
   "author": "Daniel Febrero",
   "license": "AGPL-3.0",
   "dependencies": {
+    "arg": "^4.1.3",
     "axios": "^0.20.0",
     "hybrid-crypto-js": "^0.2.3",
     "jsrsasign": "^9.0.1"

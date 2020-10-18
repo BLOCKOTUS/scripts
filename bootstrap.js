@@ -228,7 +228,7 @@ const completeAllJobs = async (users) => {
     return Promise.all(promises).catch(console.log);
 }
 
-const bootstrap = async () => {
+const start = async () => {
 
     // create indexes
     await createIndexes();
@@ -255,4 +255,4 @@ const bootstrap = async () => {
     await listJobs(usersToCreate);
 }
 
-bootstrap();
+module.exports = { start };
