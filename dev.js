@@ -124,6 +124,7 @@ const dev = async () => {
   !args['--skip-bootstrap'] && await boot();
   !args['--skip-nerves'] && nerves();
   !args['--skip-webapp'] && webapp();
+  console.log('Organism running.');
   verbose('You rock baby.');
 }
 
