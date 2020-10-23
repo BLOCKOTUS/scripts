@@ -5,17 +5,17 @@ const enrollAdmin = require('../organs/admins/enrollAdmin');
 const bootstrap = require('./bootstrap');
 
 const args = arg({
-	// Types
-	'--skip-network': Boolean,
-	'--skip-contracts': Boolean,
-	'--skip-bootstrap': Boolean,
-	'--skip-nerves': Boolean,
-	'--skip-webapp': Boolean,
-	'--verbose': Boolean,   
-	'--config-file': String,
+  // Types
+  '--skip-network': Boolean,
+  '--skip-contracts': Boolean,
+  '--skip-bootstrap': Boolean,
+  '--skip-nerves': Boolean,
+  '--skip-webapp': Boolean,
+  '--verbose': Boolean,   
+  '--config-file': String,
 
-	// Aliases
-	'-v': '--verbose',
+  // Aliases
+  '-v': '--verbose',
 });
 
 const CONFIG = require(args['--config-file'] || '../.blockotus.json');
@@ -47,7 +47,7 @@ const serial = funcs =>
     typeof func === 'function'
       ? promise.then(result => func().then(Array.prototype.concat.bind(result)))
       : null
-  , Promise.resolve([]))
+  , Promise.resolve([]));
 
 const network = () => {
   console.log('***** starting network *****');
@@ -55,7 +55,7 @@ const network = () => {
     './startNetwork.sh',
     { stdio: STDIO, cwd: CWD_SCRIPTS, env: ENV }
   );
-  verbose('done.')
+  verbose('done.');
 }
 
 const contracts = async () => {
@@ -82,16 +82,16 @@ const contracts = async () => {
       } catch (e) { console.log('ERROR with ./startFabric', e) }      
 
       resolve();
-    })
-  })
+    });
+  });
 
   await serial(promisesContracts);
   await enrollAdmin.main();
-  verbose('done.')
+  verbose('done.');
 }
 
 const boot = async () => {
-  console.log('***** starting bootstrap *****');
+  console.log('***** booting in 5 seconds... *****');
   return new Promise((resolve) => {
     setTimeout(async () => {
       await bootstrap.start();
@@ -106,7 +106,7 @@ const nerves = async () => {
     'yarn start &',
     { stdio: STDIO, cwd: CWD_NERVES, env: ENV }
   );
-  verbose('done.')
+  verbose('done.');
 }
 
 const webapp = async () => {
@@ -115,7 +115,7 @@ const webapp = async () => {
     'yarn start',
     { stdio: STDIO, cwd: CWD_WEBAPP, env: ENV }
   );
-  verbose('done.')
+  verbose('done.');
 }
 
 const dev = async () => {
