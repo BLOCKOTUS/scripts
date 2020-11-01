@@ -38,6 +38,10 @@ const ENV = {
 
 const STDIO = args['--verbose'] 
   ? ['inherit', 'inherit', 'inherit']
+  : ['ignore', 'ignore', 'inherit'];
+
+const STDIO_NETWORK_CONTRACTS = args['--verbose'] 
+  ? ['inherit', 'inherit', 'inherit']
   : ['ignore', 'ignore', 'ignore'];
 
 const verbose = log => args['--verbose'] && console.log(log);
@@ -53,16 +57,16 @@ const network = () => {
   console.log('***** starting network *****');
   child_process.execSync(
     './startNetwork.sh',
-    { stdio: STDIO, cwd: CWD_SCRIPTS, env: ENV }
+    { stdio: STDIO_NETWORK_CONTRACTS, cwd: CWD_SCRIPTS, env: ENV }
   );
   verbose('done.');
 }
 
 const contracts = async () => {
-  console.log('***** starting contracts *****');
+  console.log('***** deploying contracts *****');
   child_process.execSync(
     'rm -rf ./versions/*',
-    { stdio: STDIO, cwd: CWD_SCRIPTS, env: ENV }
+    { stdio: STDIO_NETWORK_CONTRACTS, cwd: CWD_SCRIPTS, env: ENV }
   );
 
   const promisesContracts = CONFIG.organs.map(o => {
