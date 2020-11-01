@@ -3,6 +3,7 @@ const path = require('path');
 var RSA = require('hybrid-crypto-js').RSA;
 var Crypt = require('hybrid-crypto-js').Crypt;
 const axios = require('axios');
+const crypto = require('crypto');
 
 const user = require('../organs/user/api');
 const identity = require('../organs/identity/api');
@@ -26,10 +27,12 @@ var workersByUsername = {};
 var groupIds = {};
 var jobs = {};
 
-const myIdentity = {
+const baseIdentity = {
     firstname: 'John',
     lastname: 'Smith',
-    anotherfield: 'Anotherfield'
+    birthdate: '1990-10-23',
+    nation: 'US',
+    nationalId: 'jd8wljd9',
 }
 
 const generateKeyPair = () => {
@@ -37,6 +40,12 @@ const generateKeyPair = () => {
         rsa.generateKeyPair(resolve);
     })
 }
+
+const uniqueHashFromIdentity = identity =>
+    crypto
+        .createHash('md5')
+        .update(`${identity.nation}-${identity.nationalId}-${identity.birthdate}`)
+        .digest('hex');
 
 const createIndexes = async () => {
     console.log('##################################');
@@ -87,13 +96,16 @@ const createIdentities = async (users) => {
     console.log('##################################');
 
     let promises = [];
-    users.forEach(u => {
+    users.forEach((u, i) => {
         promises.push(new Promise((r) => {
-            const encryptedIdentity = crypt.encrypt(sharedKeyPairs[u].publicKey, myIdentity);
+            var myIdentity = { ...baseIdentity, nationalId: `${baseIdentity.nationalId}${i}` };
+            var encryptedIdentity = crypt.encrypt(sharedKeyPairs[u].publicKey, myIdentity);
+            var uniqueHash = uniqueHashFromIdentity(myIdentity);
             encryptedIdentities[u] = encryptedIdentity;
             identity
                 .create({
                     encryptedIdentity,
+                    uniqueHash,
                     user: {username: u, wallet: wallets[u]}
                 })
                 .then(r)
