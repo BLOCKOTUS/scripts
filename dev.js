@@ -66,7 +66,7 @@ const contracts = async () => {
   console.log('***** deploying contracts *****');
   child_process.execSync(
     'rm -rf ./versions/*',
-    { stdio: STDIO_NETWORK_CONTRACTS, cwd: CWD_SCRIPTS, env: ENV }
+    { stdio: STDIO, cwd: CWD_SCRIPTS, env: ENV }
   );
 
   const promisesContracts = CONFIG.organs.map(o => {
@@ -74,14 +74,14 @@ const contracts = async () => {
       try{
         o.lang === 'typescript' && child_process.execSync(
           `rm -rf ../organs/${o.name}/chaincode/typescript/dist/*`,
-          { stdio: STDIO, cwd: CWD_SCRIPTS, env: ENV }
+          { stdio: STDIO_NETWORK_CONTRACTS, cwd: CWD_SCRIPTS, env: ENV }
         );
       } catch (e) { console.log('ERROR deleting typescript dist', e) }               
 
       try{
         child_process.execSync(
           `./startFabric.sh ${o.name} ${o.lang}`,
-          { stdio: STDIO, cwd: CWD_SCRIPTS, env: ENV }
+          { stdio: STDIO_NETWORK_CONTRACTS, cwd: CWD_SCRIPTS, env: ENV }
         );
       } catch (e) { console.log('ERROR with ./startFabric', e) }      
 
