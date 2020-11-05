@@ -13,11 +13,15 @@ pushd ../network
 bash scripts/downloadBinaries.sh -s
 pushd ../nerves
 yarn
-pushd ../organs/admins
+pushd ../tools/admins
 yarn
-pushd ../identity
+pushd ../../organs/helper
 yarn
 pushd ../helper
+yarn
+pushd ../job
+yarn
+pushd ../user
 yarn
 pushd ../../webapp
 yarn
