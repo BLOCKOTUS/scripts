@@ -1,7 +1,7 @@
 const child_process = require('child_process');
 const arg = require('arg');
 const path = require('path');
-const enrollAdmin = require('../organs/admins/enrollAdmin');
+const enrollAdmin = require('../tools/admins/enrollAdmin');
 const bootstrap = require('./bootstrap');
 
 const args = arg({
