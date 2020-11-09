@@ -2,7 +2,7 @@ import child_process from 'child_process';
 import arg from 'arg';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import * as enrollAdmin from '../tools/admins/enrollAdmin.js';
+import * as enrollAdmin from '../tools/admins/dist/enrollAdmin.js';
 import * as bootstrap from './bootstrap.js';
 
 const __filename = fileURLToPath(import.meta.url);
