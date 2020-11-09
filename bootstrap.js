@@ -1,13 +1,16 @@
-const fs = require('fs');
-const path = require('path');
-var RSA = require('hybrid-crypto-js').RSA;
-var Crypt = require('hybrid-crypto-js').Crypt;
-const axios = require('axios');
-const crypto = require('crypto');
+import fs from 'fs';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { RSA, Crypt } from 'hybrid-crypto-js';
+import axios from 'axios';
+import crypto from 'crypto';
 
-const user = require('../organs/user/api');
-const identity = require('../organs/identity/api');
-const job = require('../organs/job/api');
+import * as user from '../organs/user/api/index.js';
+import * as identity from '../organs/identity/api/index.js';
+import * as job from '../organs/job/api/index.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const indexLastJobAttribution = {"index":{"fields":["lastJobAttribution"]},"ddoc":"indexLastJobAttributionDoc","name":"indexLastJobAttribution","type":"json"};
 const indexRegistryDateString = {"index":{"fields":["registryDate"]},"ddoc":"indexRegistryDateStringDoc","name":"indexRegistryDateString","type":"json"};
@@ -33,13 +36,13 @@ const baseIdentity = {
     birthdate: '1990-10-23',
     nation: 'US',
     nationalId: 'jd8wljd9',
-}
+};
 
 const generateKeyPair = () => {
     return new Promise((resolve) => {
         rsa.generateKeyPair(resolve);
     })
-}
+};
 
 const uniqueHashFromIdentity = identity =>
     crypto
@@ -61,7 +64,7 @@ const createIndexes = async () => {
     promises.push(axios.post('http://admin:adminpw@localhost:7984/mychannel_user/_index', indexNextWorkers))
 
     return Promise.all(promises).catch(console.log);
-}
+};
 
 const createWalletsAndRegister = async (users) => {
     console.log('##################################');
@@ -88,7 +91,7 @@ const createWalletsAndRegister = async (users) => {
     })
 
     return Promise.all(promises).catch(console.log);
-}
+};
 
 const createIdentities = async (users) => {
     console.log('##################################');
@@ -114,7 +117,7 @@ const createIdentities = async (users) => {
     })
 
     return Promise.all(promises).catch(console.log);
-}
+};
 
 const createVerificationJobs = async (users) => {
     console.log('##################################');
@@ -143,7 +146,7 @@ const createVerificationJobs = async (users) => {
     })
 
     return Promise.all(promises).catch(console.log);
-}
+};
 
 const createSharedKeypairs = async (users) => {
     console.log('##################################');
@@ -176,7 +179,7 @@ const createSharedKeypairs = async (users) => {
     })
 
     return Promise.all(promises).catch(console.log);
-}
+};
 
 const listJobs = async (users) => {
     console.log('##################################');
@@ -199,7 +202,7 @@ const listJobs = async (users) => {
     })
 
     return Promise.all(promises).catch(console.log);
-}
+};
 
 const completeJobs = async (user, jobs) => {
     console.log('##################################');
@@ -222,7 +225,7 @@ const completeJobs = async (user, jobs) => {
     })
 
     return Promise.all(promises).catch(console.log);
-}
+};
 
 const completeAllJobs = async (users) => {
     console.log('##################################');
@@ -238,9 +241,9 @@ const completeAllJobs = async (users) => {
     })
 
     return Promise.all(promises).catch(console.log);
-}
+};
 
-const start = async () => {
+export const start = async () => {
 
     // create indexes
     await createIndexes();
@@ -265,6 +268,4 @@ const start = async () => {
 
     // List jobs
     await listJobs(usersToCreate);
-}
-
-module.exports = { start };
+};

@@ -1,6 +1,6 @@
 {
   "name": "blockotus-scripts",
-  "version": "0.2.2-alpha",
+  "version": "0.2.3-alpha",
   "description": "",
   "main": "bootstrap.js",
   "scripts": {
@@ -12,6 +12,7 @@
   },
   "author": "Daniel Febrero",
   "license": "AGPL-3.0",
+  "type": "module",
   "dependencies": {
     "arg": "^4.1.3",
     "axios": "^0.20.0",

@@ -1,8 +1,12 @@
-const child_process = require('child_process');
-const arg = require('arg');
-const path = require('path');
-const enrollAdmin = require('../tools/admins/enrollAdmin');
-const bootstrap = require('./bootstrap');
+import child_process from 'child_process';
+import arg from 'arg';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import * as enrollAdmin from '../tools/admins/enrollAdmin.js';
+import * as bootstrap from './bootstrap.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const args = arg({
   // Types
@@ -18,7 +22,6 @@ const args = arg({
   '-v': '--verbose',
 });
 
-const CONFIG = require(args['--config-file'] || '../.blockotus.json');
 const CWD_SCRIPTS = __dirname;
 const CWD_NERVES = path.join(__dirname, '../nerves');
 const CWD_WEBAPP = path.join(__dirname, '../webapp');
@@ -64,12 +67,13 @@ const network = () => {
 
 const contracts = async () => {
   console.log('***** deploying contracts *****');
+  const CONFIG = await import(args['--config-file'] || '../.blockotus.js');
   child_process.execSync(
     'rm -rf ./versions/*',
     { stdio: STDIO, cwd: CWD_SCRIPTS, env: ENV }
   );
 
-  const promisesContracts = CONFIG.organs.map(o => {
+  const promisesContracts = CONFIG.default.organs.map(o => {
     return new Promise((resolve) => {
       try{
         o.lang === 'typescript' && child_process.execSync(
@@ -90,11 +94,11 @@ const contracts = async () => {
   });
 
   await serial(promisesContracts);
-  await enrollAdmin.main();
   verbose('done.');
 }
 
 const boot = async () => {
+  await enrollAdmin.main();
   console.log('***** booting in 5 seconds... *****');
   return new Promise((resolve) => {
     setTimeout(async () => {
@@ -104,7 +108,7 @@ const boot = async () => {
   });
 }
 
-const nerves = async () => {
+const nerves = () => {
   console.log('***** starting nerves *****');
   child_process.execSync(
     'yarn start &',
@@ -113,9 +117,9 @@ const nerves = async () => {
   verbose('done.');
 }
 
-const webapp = async () => {
+const webapp = () => {
   console.log('***** starting webapp *****');
-  child_process.execSync(
+  child_process.exec(
     'yarn start',
     { stdio: STDIO, cwd: CWD_WEBAPP, env: ENV }
   );
