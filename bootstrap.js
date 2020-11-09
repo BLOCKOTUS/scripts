@@ -5,9 +5,9 @@ import { RSA, Crypt } from 'hybrid-crypto-js';
 import axios from 'axios';
 import crypto from 'crypto';
 
-import * as user from '../organs/user/api/index.js';
-import * as identity from '../organs/identity/api/index.js';
-import * as job from '../organs/job/api/index.js';
+import * as user from '../organs/user/api/index.minified.js';
+import * as identity from '../organs/identity/api/index.minified.js';
+import * as job from '../organs/job/api/index.minified.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
