@@ -98,7 +98,9 @@ const contracts = async () => {
 }
 
 const boot = async () => {
-  await enrollAdmin.main();
+  try {
+    await enrollAdmin.main();
+  } catch (e) { }
   console.log('***** booting in 5 seconds... *****');
   return new Promise((resolve) => {
     setTimeout(async () => {
