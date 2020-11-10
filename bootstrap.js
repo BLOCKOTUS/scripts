@@ -5,20 +5,36 @@ import { RSA, Crypt } from 'hybrid-crypto-js';
 import axios from 'axios';
 import crypto from 'crypto';
 
+/**
+ * Organs (chaincode) APIs.
+ */
 import * as user from '../organs/user/api/index.minified.js';
 import * as identity from '../organs/identity/api/index.minified.js';
 import * as job from '../organs/job/api/index.minified.js';
 
+/**
+ * __filename and __dirname are not defined in NPM modules on Node 15.
+ * We construct them manually. We may use babel later, which populate those variables correclty.
+ */
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+/**
+ * Indexes to be created on the CouchDB database.
+ */
 const indexLastJobAttribution = {"index":{"fields":["lastJobAttribution"]},"ddoc":"indexLastJobAttributionDoc","name":"indexLastJobAttribution","type":"json"};
 const indexRegistryDateString = {"index":{"fields":["registryDate"]},"ddoc":"indexRegistryDateStringDoc","name":"indexRegistryDateString","type":"json"};
 const indexNextWorkers = {"index":{"fields":["lastJobAttribution","registryDate"]},"ddoc":"indexNextWorkersDoc","name":"indexNextWorkers","type":"json"};
 
+/**
+ * Arbitrary usernames, used to create a bunch of users.
+ */
 const rawUsers = ['dani', 'dani42', 'dani420', 'dani4200'];
 const usersToCreate = rawUsers.map(u => `${(Math.random() * 420).toFixed(0)}-${u}`);
 
+/**
+ * A bunch of objects used to store values.
+ */
 var crypt = new Crypt();
 var rsa = new RSA();
 var sharedKeyPairs = {};
@@ -30,6 +46,9 @@ var workersByUsername = {};
 var groupIds = {};
 var jobs = {};
 
+/**
+ * Identity object, used later in the code.
+ */
 const baseIdentity = {
     firstname: 'John',
     lastname: 'Smith',
@@ -38,18 +57,28 @@ const baseIdentity = {
     nationalId: 'jd8wljd9',
 };
 
+/**
+ * Promisified rsa.generateKeyPair function.
+ */
 const generateKeyPair = () => {
     return new Promise((resolve) => {
         rsa.generateKeyPair(resolve);
     })
 };
 
+/**
+ * Return a string md5 hash based on specific fields of an identity.
+ */
 const uniqueHashFromIdentity = identity =>
     crypto
         .createHash('md5')
         .update(`${identity.nation}-${identity.nationalId}-${identity.birthdate}`)
         .digest('hex');
 
+/**
+ * Send request to the CouchDB database.
+ * It creates indexes, which allows us to sort by those indexes.
+ */
 const createIndexes = async () => {
     console.log('##################################');
     console.log('createIndexes');
@@ -66,6 +95,10 @@ const createIndexes = async () => {
     return Promise.all(promises).catch(console.log);
 };
 
+/**
+ * Send a request to the network.
+ * Create users and receive wallets.
+ */
 const createWalletsAndRegister = async (users) => {
     console.log('##################################');
     console.log('createWalletsAndRegister');
@@ -93,6 +126,10 @@ const createWalletsAndRegister = async (users) => {
     return Promise.all(promises).catch(console.log);
 };
 
+/**
+ * Send a request to the network.
+ * Create identities.
+ */
 const createIdentities = async (users) => {
     console.log('##################################');
     console.log('createIdentities');
@@ -119,6 +156,12 @@ const createIdentities = async (users) => {
     return Promise.all(promises).catch(console.log);
 };
 
+/**
+ * Send a request to the network.
+ * Create jobs.
+ * Those jobs are identity verification tasks.
+ * They are attributed to an array of users.
+ */
 const createVerificationJobs = async (users) => {
     console.log('##################################');
     console.log('createVerificationJobs');
@@ -148,6 +191,10 @@ const createVerificationJobs = async (users) => {
     return Promise.all(promises).catch(console.log);
 };
 
+/**
+ * Send a request to the network.
+ * Create keypairs, and share them with a group of workers attributed to the same task.
+ */
 const createSharedKeypairs = async (users) => {
     console.log('##################################');
     console.log('createSharedKeypairs');
@@ -181,6 +228,10 @@ const createSharedKeypairs = async (users) => {
     return Promise.all(promises).catch(console.log);
 };
 
+/**
+ * Send a request to the network.
+ * List jobs attributed to the user.
+ */
 const listJobs = async (users) => {
     console.log('##################################');
     console.log('listJobs');
@@ -204,6 +255,11 @@ const listJobs = async (users) => {
     return Promise.all(promises).catch(console.log);
 };
 
+/**
+ * Send a request to the network.
+ * Complete jobs, by sending a result.
+ * In that case, we arbitrary `approve` all the jobs.
+ */
 const completeJobs = async (user, jobs) => {
     console.log('##################################');
     console.log('completeJobs');
@@ -227,6 +283,10 @@ const completeJobs = async (user, jobs) => {
     return Promise.all(promises).catch(console.log);
 };
 
+/**
+ * Send a request to the network.
+ * Complete all the jobs using the function above.
+ */
 const completeAllJobs = async (users) => {
     console.log('##################################');
     console.log('completeAllJobs');
@@ -243,6 +303,9 @@ const completeAllJobs = async (users) => {
     return Promise.all(promises).catch(console.log);
 };
 
+/**
+ * Start the Bootstrap process.
+ */
 export const start = async () => {
 
     // create indexes
