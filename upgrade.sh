@@ -35,4 +35,5 @@ echo "$VERSION" > $path
 
 echo $VERSION
 
+rm -rf ../organs/$ORGAN/chaincode/typescript/dist/*
 ./startFabric.sh $ORGAN typescript $VERSION
