@@ -12,7 +12,7 @@ mkdir -p wallet
 echo "Installing scripts..."
 pushd scripts
 source /usr/local/opt/nvm/nvm.sh
-nvm use 12
+nvm use 15
 yarn
 
 if [[ "$*" == "--skip-binaries" ]]
@@ -28,6 +28,7 @@ fi
 
 echo "Installing nerves..."
 pushd ../nerves
+nvm use 14
 yarn
 
 echo "Installing admin tools..."
@@ -40,6 +41,7 @@ yarn
 
 echo "Installing did libraries..."
 pushd ../did
+nvm use 15
 yarn
 
 echo "Installing job libraries..."
