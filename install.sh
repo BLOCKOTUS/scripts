@@ -6,22 +6,57 @@ if [ "${PWD##*/}" == "scripts" ];
         pushd ../
 fi
 
+echo "Creating wallet..."
 mkdir -p wallet
+
+echo "Installing scripts..."
 pushd scripts
+source /usr/local/opt/nvm/nvm.sh
+nvm use 12
 yarn
-pushd ../network
-bash scripts/downloadBinaries.sh -s
+
+if [[ "$*" == "--skip-binaries" ]]
+then
+    disableBinaries=true
+fi
+
+if [ "$disableBinaries" != true ]; then
+    echo "Downloading binaries..."
+    pushd ../network
+    bash scripts/downloadBinaries.sh -s
+fi
+
+
+echo "Installing nerves..."
 pushd ../nerves
 yarn
+
+echo "Installing admin tools..."
 pushd ../tools/admins
 yarn
+
+echo "Installing helper libraries..."
 pushd ../../organs/helper
 yarn
-pushd ../helper
+
+echo "Installing did libraries..."
+pushd ../did
 yarn
+
+echo "Installing job libraries..."
 pushd ../job
 yarn
+
+echo "Installing identity libraries..."
+pushd ../job
+yarn
+
+echo "Installing user libraries..."
 pushd ../user
 yarn
+
+echo "Installing webapp..."
 pushd ../../webapp
 yarn
+
+echo "Done."
