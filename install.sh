@@ -26,7 +26,6 @@ if [ "$disableBinaries" != true ]; then
     bash scripts/downloadBinaries.sh -s
 fi
 
-
 echo "Installing nerves..."
 pushd ../nerves
 yarn
