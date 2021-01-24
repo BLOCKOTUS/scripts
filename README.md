@@ -6,7 +6,7 @@ This repository is part of the BLOCKOTUS Organism (https://github.com/BLOCKOTUS/
 
 ## Scripts
 
-### dev.sh
+### dev.js
 Execute all the commands needed to start developing, after having run the installation script.
 
 ### env.sh
