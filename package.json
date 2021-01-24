@@ -15,7 +15,7 @@
   "type": "module",
   "dependencies": {
     "arg": "^4.1.3",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "hybrid-crypto-js": "^0.2.3",
     "jsrsasign": "^9.0.1"
   },
