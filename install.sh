@@ -23,7 +23,7 @@ fi
 if [ "$disableBinaries" != true ]; then
     echo "Downloading binaries..."
     pushd ../network
-    bash scripts/downloadBinaries.sh -s
+    bash scripts/bootstrap.sh -s 2.3.0 1.4.9
 fi
 
 echo "Installing nerves..."
@@ -46,6 +46,10 @@ yarn
 
 echo "Installing job libraries..."
 pushd ../job
+yarn
+
+echo "Installing keypair libraries..."
+pushd ../keypair
 yarn
 
 echo "Installing identity libraries..."
