@@ -8,9 +8,10 @@ import crypto from 'crypto';
 /**
  * Organs (chaincode) APIs.
  */
-import * as user from '../organs/user/api/dist/index.js';
 import * as identity from '../organs/identity/api/dist/index.js';
 import * as job from '../organs/job/api/dist/index.js';
+import * as keypair from '../organs/keypair/api/dist/index.js';
+import * as user from '../organs/user/api/dist/index.js';
 
 /**
  * __filename and __dirname are not defined in NPM modules on Node 15.
@@ -214,7 +215,7 @@ const createSharedKeypairs = async (users) => {
 
             console.log('sharedWith count', Object.keys(sharedWith).length)
 
-            user.shareKeypair({
+            keypair.share({
                 sharedWith,
                 groupId,
                 myEncryptedKeyPair,
