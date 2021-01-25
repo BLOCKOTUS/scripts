@@ -8,9 +8,9 @@ import crypto from 'crypto';
 /**
  * Organs (chaincode) APIs.
  */
-import * as user from '../organs/user/api/index.minified.js';
-import * as identity from '../organs/identity/api/index.minified.js';
-import * as job from '../organs/job/api/index.minified.js';
+import * as user from '../organs/user/api/dist/index.js';
+import * as identity from '../organs/identity/api/dist/index.js';
+import * as job from '../organs/job/api/dist/index.js';
 
 /**
  * __filename and __dirname are not defined in NPM modules on Node 15.
