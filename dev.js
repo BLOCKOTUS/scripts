@@ -18,10 +18,16 @@ const __dirname = dirname(__filename);
 const args = arg({
   // Types
   '--skip-network': Boolean,
+  '--run-network': Boolean,
   '--skip-contracts': Boolean,
+  '--run-contracts': Boolean,
   '--skip-bootstrap': Boolean,
+  '--run-bootstrap': Boolean,
   '--skip-nerves': Boolean,
+  '--run-nerves': Boolean,
   '--skip-webapp': Boolean,
+  '--run-webapp': Boolean,
+  '--skip-all': Boolean,
   '--verbose': Boolean,   
   '--config-file': String,
 
@@ -172,11 +178,11 @@ const webapp = () => {
 }
 
 const dev = async () => {
-  !args['--skip-network'] && network();
-  !args['--skip-contracts'] && await contracts();
-  !args['--skip-bootstrap'] && await boot();
-  !args['--skip-nerves'] && nerves();
-  !args['--skip-webapp'] && webapp();
+  !args['--skip-network'] && (!args['--skip-all'] || args['--run-network']) && network();
+  !args['--skip-contracts'] && (!args['--skip-all'] || args['--run-contracts']) && await contracts();
+  !args['--skip-bootstrap'] && (!args['--skip-all'] || args['--run-bootrap']) && await boot();
+  !args['--skip-nerves'] && (!args['--skip-all'] || args['--run-nerves']) && nerves();
+  !args['--skip-webapp'] && (!args['--skip-all'] || args['--run-webapp']) && webapp();
   console.log('Organism running.');
   verbose('You rock baby.');
 }
