@@ -61,7 +61,7 @@ pushd ../user
 yarn
 
 echo "Installing webapp..."
-pushd ../../webapp
+pushd ../../webapps/webapp-react
 yarn
 
 echo "Done."

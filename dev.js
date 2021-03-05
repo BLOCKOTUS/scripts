@@ -40,7 +40,7 @@ const args = arg({
  */
 const CWD_SCRIPTS = __dirname;
 const CWD_NERVES = path.join(__dirname, '../nerves');
-const CWD_WEBAPP = path.join(__dirname, '../webapp');
+const CWD_WEBAPP = path.join(__dirname, '../webapp/webbapp-react');
 const BLOCKOTUS = path.join(__dirname, '../');
 
 /**
@@ -50,6 +50,7 @@ const ENV = {
   BLOCKOTUS,
   PATH: `${BLOCKOTUS}network/bin:${process.env.PATH}`,
   FABRIC_CFG_PATH: `${BLOCKOTUS}network/config`,
+  FABRIC_LOGGING_SPEC: `DEBUG`,
 
   CORE_PEER_TLS_ENABLED: `true`,
   CORE_PEER_LOCALMSPID: `Org1MSP`,
@@ -180,7 +181,7 @@ const webapp = () => {
 const dev = async () => {
   !args['--skip-network'] && (!args['--skip-all'] || args['--run-network']) && network();
   !args['--skip-contracts'] && (!args['--skip-all'] || args['--run-contracts']) && await contracts();
-  !args['--skip-bootstrap'] && (!args['--skip-all'] || args['--run-bootrap']) && await boot();
+  !args['--skip-bootstrap'] && (!args['--skip-all'] || args['--run-bootstrap']) && await boot();
   !args['--skip-nerves'] && (!args['--skip-all'] || args['--run-nerves']) && nerves();
   !args['--skip-webapp'] && (!args['--skip-all'] || args['--run-webapp']) && webapp();
   console.log('Organism running.');
