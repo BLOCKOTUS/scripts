@@ -23,8 +23,6 @@ const __dirname = dirname(__filename);
 /**
  * Indexes to be created on the CouchDB database.
  */
-const indexLastJobAttribution = {"index":{"fields":["lastJobAttribution"]},"ddoc":"indexLastJobAttributionDoc","name":"indexLastJobAttribution","type":"json"};
-const indexRegistryDateString = {"index":{"fields":["registryDate"]},"ddoc":"indexRegistryDateStringDoc","name":"indexRegistryDateString","type":"json"};
 const indexNextWorkers = {"index":{"fields":["lastJobAttribution","registryDate"]},"ddoc":"indexNextWorkersDoc","name":"indexNextWorkers","type":"json"};
 
 /**
@@ -86,10 +84,6 @@ const createIndexes = async () => {
     console.log('##################################');
 
     const promises = [];
-    promises.push(axios.post('http://admin:adminpw@localhost:5984/mychannel_user/_index', indexLastJobAttribution))
-    promises.push(axios.post('http://admin:adminpw@localhost:7984/mychannel_user/_index', indexLastJobAttribution))
-    promises.push(axios.post('http://admin:adminpw@localhost:5984/mychannel_user/_index', indexRegistryDateString))
-    promises.push(axios.post('http://admin:adminpw@localhost:7984/mychannel_user/_index', indexRegistryDateString))
     promises.push(axios.post('http://admin:adminpw@localhost:5984/mychannel_user/_index', indexNextWorkers))
     promises.push(axios.post('http://admin:adminpw@localhost:7984/mychannel_user/_index', indexNextWorkers))
 
