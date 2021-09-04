@@ -11,7 +11,7 @@ mkdir -p wallet
 
 echo "Installing scripts..."
 pushd scripts
-source /usr/local/opt/nvm/nvm.sh
+source ~/.nvm/nvm.sh
 nvm use 15
 yarn
 
