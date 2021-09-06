@@ -44,7 +44,7 @@ const CWD_WEBAPP = path.join(__dirname, '../webapp/webbapp-react');
 const BLOCKOTUS = path.join(__dirname, '../');
 
 /**
- * Those environment variables are used by Hyperledger Fabric, and are passed to the node child process.
+ * Those environment variables are used by Hyperledger Fabric, Nerves, and Webapp, and are passed to the node child process.
  */
 const ENV = {
   BLOCKOTUS,
@@ -52,12 +52,16 @@ const ENV = {
   FABRIC_CFG_PATH: `${BLOCKOTUS}network/config`,
   FABRIC_LOGGING_SPEC: `DEBUG`,
 
+  NERVES_PORT: 3000,
+
   CORE_PEER_TLS_ENABLED: `true`,
   CORE_PEER_LOCALMSPID: `Org1MSP`,
   CORE_PEER_TLS_ROOTCERT_FILE: `${BLOCKOTUS}network/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt`,
   CORE_PEER_MSPCONFIGPATH: `${BLOCKOTUS}network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp`,
   CORE_PEER_ADDRESS: `localhost:7051`,
 };
+
+const WEBAPP_PORT = 4201;
 
 /**
  * When not in verbose, we do not show any program output, except for errors.
@@ -173,8 +177,9 @@ const webapp = () => {
   console.log('***** starting webapp *****');
   child_process.exec(
     'yarn start',
-    { stdio: STDIO, cwd: CWD_WEBAPP, env: ENV }
+    { stdio: STDIO, cwd: CWD_WEBAPP, env: { ...ENV, PORT: WEBAPP_PORT } },
   );
+  console.log(`Webapp listening on PORT: ${WEBAPP_PORT}`);
   verbose('done.');
 }
 
