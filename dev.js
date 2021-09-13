@@ -52,7 +52,7 @@ const ENV = {
   FABRIC_CFG_PATH: `${BLOCKOTUS}network/config`,
   FABRIC_LOGGING_SPEC: `DEBUG`,
 
-  NERVES_PORT: 3000,
+  NERVES_PORT: 3001,
 
   CORE_PEER_TLS_ENABLED: `true`,
   CORE_PEER_LOCALMSPID: `Org1MSP`,
@@ -61,7 +61,7 @@ const ENV = {
   CORE_PEER_ADDRESS: `localhost:7051`,
 };
 
-const WEBAPP_PORT = 4201;
+const WEBAPP_PORT = 3000;
 
 /**
  * When not in verbose, we do not show any program output, except for errors.
