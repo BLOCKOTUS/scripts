@@ -62,6 +62,6 @@ yarn
 
 echo "Installing webapp..."
 pushd ../../webapps/webapp-react
-npm install
+yarn
 
 echo "Done."
